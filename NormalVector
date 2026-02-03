@@ -2,14 +2,16 @@
 @author Dominus Magicae
 @inputs [Base Seat]:entity [PodController]:wirelink [X Y Z]:number [AimDir]:vector
 @outputs
-@persist 
+@persist
 
 runOnTick(1)
-function void keepUpRight() {
-	if (Base:isValid()) {
-		NormVec = vec(X,Y,Z)
-		Base:setAng(ang(NormVec:cross(AimDir:right():normalize())))
-  }
+function void keepUpRight(Prop:entity) {
+	# sets the angle of a Prop:entity to that of a parallel angle, while saving cardinallity 
+	if (Base:isValid()) { # first checks if Base is connected or not
+		NormVec = vec(X,Y,Z) # gets normal vector of plane below on
+		# vector:normalize() changes any value contain in a vector to a value max of -1 < x < 1. use in tandom with HitNormal rangers
+		# sets Base's angle to that of the cross product of ( N x [aimDir's right face] )
+		Prop:setAng(ang(NormVec:cross(AimDir:right():normalize())))
+	}
 }
-
-keepUpRight()
+keepUpRight(Base)
