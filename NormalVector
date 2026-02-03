@@ -8,7 +8,7 @@ runOnTick(1)
 function void keepUpRight() {
 	if (Base:isValid()) {
 		NormVec = vec(X,Y,Z)
-		Base:setAng(ang(NormVec:cross(AimDir:right())))
+		Base:setAng(ang(NormVec:cross(AimDir:right():normalize())))
   }
 }
 
