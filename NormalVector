@@ -1,0 +1,15 @@
+@name ParallelVectorToPlane
+@author Dominus Magicae
+@inputs [Base Seat]:entity [PodController]:wirelink [X Y Z]:number [AimDir]:vector
+@outputs
+@persist 
+
+runOnTick(1)
+function void keepUpRight() {
+	if (Base:isValid()) {
+		NormVec = vec(X,Y,Z)
+		Base:setAng(ang(NormVec:cross(AimDir:right())))
+  }
+}
+
+keepUpRight()
