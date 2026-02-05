@@ -1,0 +1,16 @@
+@Name LegSkeletonTest
+@Author Dom
+@inputs [FootL1 FootL2 FootL3 FootR1 FootR2 FootR3]:entity 
+@inputs [KneeL1 KneeL2 KneeL3 KneeR1 KneeR2 KneeR3]:entity
+@inputs [HipL1 HipL2 HipL3 HipL4 HipL5 HipL6]:entity
+@inputs [Base]:entity
+@outputs
+@persist 
+
+if (first() || duped()) {
+	LegAngQuad = 90
+	LegAngLong = 120
+
+	LegLengthHip = 50
+	LegLengthLower = 60
+}
