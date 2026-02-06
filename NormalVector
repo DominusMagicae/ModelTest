@@ -1,17 +1,27 @@
-@name ParallelVectorToPlane
-@author Dominus Magicae
-@inputs [Base Seat]:entity [PodController]:wirelink [X Y Z]:number [AimDir]:vector
+@name KeepUpRight Test 2
+@inputs [Base]:entity
 @outputs
-@persist
+@persist [R]:ranger [E Base]:entity
 
-runOnTick(1)
-function void keepUpRight(Prop:entity) {
-	# sets the angle of a Prop:entity to that of a parallel angle, while saving cardinallity 
-	if (Base:isValid()) { # first checks if Base is connected or not
-		NormVec = vec(X,Y,Z) # gets normal vector of plane below on
-		# vector:normalize() changes any value contain in a vector to a value max of -1 < x < 1. use in tandom with HitNormal rangers
-		# sets Base's angle to that of the cross product of ( N x [aimDir's right face] )
-		Prop:setAng(ang(NormVec:cross(AimDir:right():normalize())))
+if (first() || duped()) {
+	E = entity()
+	function void KeepUpRight(Base:entity) {
+		if (Base:isValid()) {
+			R = rangerOffset(9999, Base:pos(), -Base:up())
+			rangerHitEntities(1)
+			local NormVec = R:hitNormal()
+			NormVec = NormVec + Base:pos() # NormVec now "connected" to Base prop
+			local RightVec = Base:right()
+			local NewFWDVec = NormVec:cross(RightVec)
+			Base:setAng(NewFWDVec:toAngle())
+		}
 	}
 }
-keepUpRight(Base)
+
+event tick() { # every ingame tick, do this
+	KeepUpRight(E)
+}
+
+
+
+
