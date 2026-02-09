@@ -1,0 +1,14 @@
+@name BallSocket Test
+@inputs [Base Follower]:entity
+@outputs
+@persist [Base Follower]:entity
+@trigger all
+
+if (first() || dupeD()) {
+	function void bSNoMove(Ent1:entity Ent2:entity) {
+		if (Ent1.isValid() && Ent2.isValid()) {
+
+	}
+	function void bSFreeMove(Ent1:entity Ent2:entity) {
+		if (Ent1.isValid() && Ent2.isValid()) {
+			Ent2.setAng(Ent1.)
