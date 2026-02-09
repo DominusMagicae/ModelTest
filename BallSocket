@@ -1,20 +1,27 @@
-@name BallSocket Test
-@inputs [Base Follower]:entity
+@name ballsocket and parent Test
+@inputs [Base Follower Follower2]:entity
 @outputs
-@persist [Base Follower]:entity
+@persist [Base Follower Follower2]:entity
+@persist [Relative_Vector]:vector
 @trigger all
 
-if (first() || duped()) {
-	function void bSNoMove(Ent1:entity Ent2:entity) {
-		if (Ent1:isValid() && Ent2:isValid()) {
+if (first() | duped()) {
+	Relative_Vector = vec(0,0,0)
+	function void parent(Ent1:entity Ent2:entity) {
+		if (Ent1:isValid() & Ent2:isValid()) {
+			if (Relative_Vector == vec(0,0,0) | Ent2:pos() != Relative_Vector) {
+				Relative_Vector = Ent1:pos() - Ent2:pos()
+				Ent2:setPos(Ent1:pos() + Relative_Vector)
+				Ent2:setAng(Ent1:angles())
+			}
 			
-			Ent2:setAng(Ent1:angles())
 	}
-	function void bSFreeMove(Ent1:entity Ent2:entity) {
-		if (Ent1:isValid() && Ent2:isValid()) {
+	function void bsFreeMove(Ent1:entity Ent2:entity) {
+		if (Ent1:isValid() & Ent2:isValid()) {
 			Ent2:setAng(Ent1:angles())
 		}
 	}
 }
 
-bSNoMove(Base, Follower)
+parent(Base, Follower)
+bsFreeMove(Base, Follower2)
