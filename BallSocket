@@ -4,11 +4,17 @@
 @persist [Base Follower]:entity
 @trigger all
 
-if (first() || dupeD()) {
+if (first() || duped()) {
 	function void bSNoMove(Ent1:entity Ent2:entity) {
-		if (Ent1.isValid() && Ent2.isValid()) {
-
+		if (Ent1:isValid() && Ent2:isValid()) {
+			
+			Ent2:setAng(Ent1:angles())
 	}
 	function void bSFreeMove(Ent1:entity Ent2:entity) {
-		if (Ent1.isValid() && Ent2.isValid()) {
-			Ent2.setAng(Ent1.)
+		if (Ent1:isValid() && Ent2:isValid()) {
+			Ent2:setAng(Ent1:angles())
+		}
+	}
+}
+
+bSNoMove(Base, Follower)
